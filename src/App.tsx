@@ -8,10 +8,11 @@ import {
   Send, 
   Paperclip, 
   Settings, 
-  Moon, 
   Trash2, 
   Share2, 
   LogOut, 
+  Moon,
+  User,
   CheckCircle2, 
   Zap, 
   BookOpen, 
@@ -144,6 +145,10 @@ export default function App() {
       }
     ]);
   };
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  };
   
   useEffect(() => {
     // Add transition styling to document root
@@ -161,10 +166,6 @@ export default function App() {
     }
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
-  };
-  
   const scrollRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -504,7 +505,7 @@ export default function App() {
     alert("Tính năng chuyển bài học tiếp theo đang được cập nhật!");
   };
 
-  const [avatarUrl, setAvatarUrl] = useState('https://api.dicebear.com/7.x/avataaars/svg?seed=Lê%20Thị%20Kiều%20Anh&backgroundType=gradientLinear&backgroundColor=ffdfbf,ffd5dc');
+  const [avatarUrl, setAvatarUrl] = useState<string | null>('https://images.unsplash.com/photo-1544717297-fa95b3ee51f3?w=400&h=400&fit=crop&q=80');
   const avatarInputRef = useRef<HTMLInputElement>(null);
 
   const handleAvatarClick = () => {
@@ -596,15 +597,21 @@ export default function App() {
           <div className="relative mb-6">
             <button 
               onClick={handleAvatarClick}
-              className="w-32 h-32 rounded-full border-4 border-white dark:border-slate-800 shadow-xl overflow-hidden bg-slate-100 dark:bg-slate-800 flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity group relative"
+              className="w-32 h-32 rounded-full border-4 border-white dark:border-slate-800 shadow-xl overflow-hidden bg-indigo-600 flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity group relative"
             >
-              <img 
-                src={avatarUrl} 
-                alt="Teacher" 
-                className="w-full h-full object-cover"
-              />
+              {avatarUrl ? (
+                <img 
+                  src={avatarUrl} 
+                  alt="Teacher" 
+                  className="w-full h-full object-cover" 
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <User className="w-16 h-16 text-white" />
+                </div>
+              )}
               <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                <span className="text-white text-[10px] font-bold uppercase">Đổi ảnh</span>
+                <span className="text-white text-[10px] font-bold uppercase text-center px-2">Thay đổi ảnh</span>
               </div>
             </button>
             <input 
@@ -645,16 +652,6 @@ export default function App() {
           <div className="mt-auto w-full border-t border-slate-100 dark:border-slate-800 flex flex-col pt-4">
             <div className="space-y-1 overflow-y-auto max-h-[180px] scrollbar-hide mb-2">
               <button 
-                onClick={toggleTheme}
-                className="flex items-center gap-4 text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-amber-500 transition-colors w-full group p-2 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/50"
-              >
-                <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center group-hover:bg-indigo-50 dark:group-hover:bg-amber-900/20 transition-colors shrink-0">
-                  {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
-                </div>
-                <span className="font-semibold text-sm">{theme === 'light' ? 'Chế độ tối' : 'Chế độ sáng'}</span>
-              </button>
-
-              <button 
                 onClick={handleClearChat}
                 className="flex items-center gap-4 text-slate-500 dark:text-slate-400 hover:text-red-500 transition-colors w-full group p-2 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/50"
               >
@@ -672,6 +669,16 @@ export default function App() {
                   <Share2 className="w-5 h-5" />
                 </div>
                 <span className="font-semibold text-sm">Chia sẻ & In</span>
+              </button>
+
+              <button 
+                onClick={toggleTheme}
+                className="flex items-center gap-4 text-slate-500 dark:text-slate-400 hover:text-indigo-600 transition-colors w-full group p-2 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/50"
+              >
+                <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center group-hover:bg-indigo-50 transition-colors shrink-0">
+                  {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+                </div>
+                <span className="font-semibold text-sm">{theme === 'light' ? 'Chế độ tối' : 'Chế độ sáng'}</span>
               </button>
             </div>
 
@@ -712,13 +719,6 @@ export default function App() {
               title="Cài đặt hệ thống"
             >
               <Settings className="w-5 h-5" />
-            </button>
-            <button 
-              onClick={toggleTheme}
-              className="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 flex items-center justify-center text-slate-500 hover:text-indigo-600 transition-all hover:shadow-md"
-              title={theme === 'light' ? 'Chế độ tối' : 'Chế độ sáng'}
-            >
-              {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5 text-amber-500" />}
             </button>
             <button 
               onClick={handleClearChat}
