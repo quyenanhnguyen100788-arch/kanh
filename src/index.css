@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+.markdown-content p {
+  @apply mb-2 last:mb-0;
+}
+
+.markdown-content ul {
+  @apply list-disc ml-6 mb-2;
+}
+
+.markdown-content ol {
+  @apply list-decimal ml-6 mb-2;
+}
+
+.markdown-content h1, .markdown-content h2, .markdown-content h3 {
+  @apply font-bold mb-2;
+}
+
+.markdown-content code {
+  @apply bg-slate-100 dark:bg-slate-700 px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+.markdown-content .katex-display {
+  @apply my-2 overflow-x-auto overflow-y-hidden py-1;
+}
+
+@layer base {
+  :root {
+    color-scheme: light dark;
+  }
+  
+  html.dark, .dark body {
+    background-color: #0a0c10;
+    color: #f1f5f9;
+  }
+
+  body {
+    @apply antialiased transition-colors duration-500 ease-in-out bg-[#f4f7fe] text-slate-800;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
