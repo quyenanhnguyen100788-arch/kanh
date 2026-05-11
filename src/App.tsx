@@ -602,7 +602,7 @@ export default function App() {
               {avatarUrl ? (
                 <img 
                   src={avatarUrl} 
-                  alt="Teacher" 
+                  alt="" 
                   className="w-full h-full object-cover" 
                 />
               ) : (
@@ -648,50 +648,6 @@ export default function App() {
               <p>Hỗ trợ 24/7 giải đáp mọi thắc mắc.</p>
             </div>
           </div>
-
-          <div className="mt-auto w-full border-t border-slate-100 dark:border-slate-800 flex flex-col pt-4">
-            <div className="space-y-1 overflow-y-auto max-h-[180px] scrollbar-hide mb-2">
-              <button 
-                onClick={handleClearChat}
-                className="flex items-center gap-4 text-slate-500 dark:text-slate-400 hover:text-red-500 transition-colors w-full group p-2 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/50"
-              >
-                <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center group-hover:bg-red-50 dark:group-hover:bg-red-900/20 transition-colors shrink-0">
-                  <Trash2 className="w-5 h-5" />
-                </div>
-                <span className="font-semibold text-sm">Xoá cuộc trò chuyện</span>
-              </button>
-
-              <button 
-                onClick={handleShareClick}
-                className="flex items-center gap-4 text-slate-500 dark:text-slate-400 hover:text-indigo-600 transition-colors w-full group p-2 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/50"
-              >
-                <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center group-hover:bg-indigo-50 transition-colors shrink-0">
-                  <Share2 className="w-5 h-5" />
-                </div>
-                <span className="font-semibold text-sm">Chia sẻ & In</span>
-              </button>
-
-              <button 
-                onClick={toggleTheme}
-                className="flex items-center gap-4 text-slate-500 dark:text-slate-400 hover:text-indigo-600 transition-colors w-full group p-2 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/50"
-              >
-                <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center group-hover:bg-indigo-50 transition-colors shrink-0">
-                  {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
-                </div>
-                <span className="font-semibold text-sm">{theme === 'light' ? 'Chế độ tối' : 'Chế độ sáng'}</span>
-              </button>
-            </div>
-
-            <button 
-              onClick={handleLogout}
-              className="flex items-center gap-4 text-red-500 hover:text-red-600 transition-colors w-full group p-2 rounded-2xl hover:bg-red-50 dark:hover:bg-red-900/10 border border-transparent hover:border-red-100 dark:hover:border-red-900/20"
-            >
-              <div className="w-10 h-10 rounded-xl bg-red-50 dark:bg-red-900/10 flex items-center justify-center transition-colors shrink-0">
-                <LogOut className="w-5 h-5" />
-              </div>
-              <span className="font-bold text-sm tracking-tight">Đăng xuất</span>
-            </button>
-          </div>
         </div>
       </motion.aside>
 
@@ -713,6 +669,13 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-3">
+            <button 
+              onClick={toggleTheme}
+              className="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 flex items-center justify-center text-slate-500 hover:text-indigo-600 transition-all hover:shadow-md"
+              title={theme === 'light' ? "Chuyển sang chế độ tối" : "Chuyển sang chế độ sáng"}
+            >
+              {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+            </button>
             <button 
               onClick={handleSettings}
               className="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 flex items-center justify-center text-slate-500 hover:text-indigo-600 transition-all hover:shadow-md"
